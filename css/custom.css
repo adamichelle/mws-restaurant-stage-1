@@ -20,3 +20,10 @@ nav{
 .filter-options select {
     margin-left: 1em;
 }
+
+/* ================================ Restaurant Listing ================================== */
+.restaurants-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5em;
+}

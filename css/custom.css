@@ -5,3 +5,18 @@ nav{
     height: auto;
     padding: 2em 0;
 }
+
+/* ================================ Filtering Options ================================== */
+.filter-options {
+    height: auto;
+}
+
+.filter-options h2 {
+    font-size: 1.5rem;
+    margin: 0 0.5em;
+    padding: 0.5em 0.2em 0;
+}
+
+.filter-options select {
+    margin-left: 1em;
+}

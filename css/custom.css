@@ -51,6 +51,99 @@ nav{
     top: 130px;
 }
 
+.restaurant-container,
+.reviews-container {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: none;
+}
+
+.restaurant-img,
+.restaurant-cuisine {
+    width: 100%;
+}
+.restaurant-img {
+    border-top-left-radius: 2em;
+}
+
+.restaurant-cuisine {
+    border-bottom-right-radius: 2em;
+    color: #fff;
+}
+
+.restaurant-address {
+    text-align: center;
+    color: #333;
+}
+
+.restaurant-hours{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.restaurant-hours td {
+    padding: 0.5em 2em;
+}
+
+.restaurant-hours tr:nth-child(even) td {
+    background-color:#ccc;
+}
+
+.reviews-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.reviews-list li {
+    border-top-left-radius: 1.5em;
+    border: 2px solid #f3f3f3;
+    display: block;
+    list-style-type: none;
+    margin: 0 0 30px;
+    overflow: hidden;
+    position: relative;
+    width: 100%;
+    padding: 0;
+}
+
+.review-item-header {
+    background-color: #333;
+    padding: 0.7em 1.5em;
+    color: #f3f3f3;
+    /* border-top-left-radius: 1.5em; */
+    font-size: 1.5em;
+    margin-bottom: 0;
+}
+
+.review-item-header span {
+    font-size: 0.7em;
+    color: #bbb;
+    float: right;
+    padding: 0.5em 0;
+    line-height: 1.2em;
+}
+
+.review-item-body{
+    padding: 1.5em 1.5em;
+    background: #fff;
+    border-bottom-right-radius: 1.5em;
+}
+
+.review-item-rating {
+    background: orange;
+    color: #fff;
+    border-radius: 0.3em;
+    width: 8.5em;
+    text-transform: uppercase;
+    padding: 0.5em;
+    text-align: center;
+    font-size: 1em;
+    margin-bottom: 0.5em;
+}
+
 .inside .footer {
     width: 100%;
 }

@@ -25,5 +25,5 @@ nav{
 .restaurants-list {
     display: flex;
     flex-wrap: wrap;
-    padding: 5em;
+    box-sizing: border-box;
 }

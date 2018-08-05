@@ -4,7 +4,7 @@
 
     /* ================================= Navigation Elements ================================ */
     nav h1 a {
-        font-size: 12pt;
+        font-size: 1em;
     }
 
     .restaurants-list {
@@ -12,8 +12,7 @@
     }
 
     .restaurants-list li {
-        max-width: 100%;
-        margin: 1em 0;
+        width: 75%;
     }
     
 }
@@ -25,19 +24,19 @@
     }
 
     .restaurants-list li {
-        max-width: calc(100% - 15px);
+        max-width: calc(100% - 120px);
     }
 
 }
  
-@media screen and (min-width: 1000px) and (max-width: 1119px) {
+@media screen and (min-width: 1000px) and (max-width: 1140px) {
     .restaurants-list {
         justify-content: center;
     }
 }
 
-@media screen and (min-width: 1120px) {
-    .restaurants-list li {
-        max-width: calc((100% - 300px)/3);
+@media screen and (min-width: 1141px) {
+    .restaurants-list {
+      justify-content: space-evenly;
     }
 }

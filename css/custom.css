@@ -99,6 +99,7 @@ nav{
 
 .reviews-list li {
     border-top-left-radius: 1.5em;
+    border-bottom-right-radius: 1.5em;
     border: 2px solid #f3f3f3;
     display: block;
     list-style-type: none;
@@ -113,7 +114,6 @@ nav{
     background-color: #333;
     padding: 0.7em 1.5em;
     color: #f3f3f3;
-    /* border-top-left-radius: 1.5em; */
     font-size: 1.5em;
     margin-bottom: 0;
 }
@@ -129,7 +129,6 @@ nav{
 .review-item-body{
     padding: 1.5em 1.5em;
     background: #fff;
-    border-bottom-right-radius: 1.5em;
 }
 
 .review-item-rating {
@@ -140,8 +139,7 @@ nav{
     text-transform: uppercase;
     padding: 0.5em;
     text-align: center;
-    font-size: 1em;
-    margin-bottom: 0.5em;
+    font-weight: 800;
 }
 
 .inside .footer {

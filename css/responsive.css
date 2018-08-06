@@ -16,6 +16,15 @@
         width: 75%;
     }
     
+    /* ================================ Restaurant Details ================================== */
+    .restaurant-container, 
+    .reviews-container {
+        width: 90%;
+    }
+
+    .reviews-container {
+        border-bottom: none;
+    }
 }
 
 @media screen and (min-width: 600px) and (max-width: 999px) {
@@ -28,11 +37,30 @@
         max-width: calc(100% - 120px);
     }
 
+    /* ================================ Restaurant Details ================================== */
+    .restaurant-container, 
+    .reviews-container {
+        width: 85%;
+    }
+
+    .reviews-container {
+        border-bottom: none;
+    }
 }
  
 @media screen and (min-width: 1000px) and (max-width: 1140px) {
     .restaurants-list {
         justify-content: center;
+    }
+
+    /* ================================ Restaurant Details ================================== */
+    .restaurant-container, 
+    .reviews-container {
+        width: 75%;
+    }
+
+    .reviews-container {
+        border-bottom: none;
     }
 }
 
@@ -40,4 +68,14 @@
     .restaurants-list {
       justify-content: space-evenly;
     }
+
+    .restaurant-container, 
+    .reviews-container {
+        width: 65%;
+    }
+
+    .reviews-container {
+        border-bottom: none;
+    }
+
 }

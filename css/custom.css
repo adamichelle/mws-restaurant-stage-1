@@ -61,34 +61,34 @@ nav{
     border-top: none;
 }
 
-.restaurant-img,
+.inside .restaurant-img,
 .restaurant-cuisine {
     width: 100%;
 }
-.restaurant-img {
+.inside .restaurant-img {
     border-top-left-radius: 2em;
 }
 
-.restaurant-cuisine {
+.inside .restaurant-cuisine {
     border-bottom-right-radius: 2em;
     color: #fff;
 }
 
-.restaurant-address {
+.inside .restaurant-address {
     text-align: center;
     color: #333;
 }
 
-.restaurant-hours{
+.inside .restaurant-hours{
     width: 100%;
     border-collapse: collapse;
 }
 
-.restaurant-hours td {
+.inside .restaurant-hours td {
     padding: 0.5em 2em;
 }
 
-.restaurant-hours tr:nth-child(even) td {
+.inside .restaurant-hours tr:nth-child(even) td {
     background-color:#ccc;
 }
 

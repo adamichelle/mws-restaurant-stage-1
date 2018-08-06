@@ -158,10 +158,25 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
-  const image = document.createElement('img');
-  image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
-  li.append(image);
+  //Get the image source from the JSON File
+  const imageSourceUrl = DBHelper.imageUrlForRestaurant(restaurant);
+
+  //Get the name associated with the image using regular expression
+  let imageName = imageSourceUrl.match(/\d/g);
+  imageName = imageName.join("");
+
+  //Create a piture element for alternative sources of image
+  const picture = document.createElement('picture');
+  const source1 = document.createElement('source');
+  source1.setAttribute('media', "(max-width: 600px)");
+  source1.setAttribute('srcset', `./images/${imageName}_medium.jpg`);
+  picture.appendChild(source1);
+  const img = document.createElement('img');
+  img.src = `./images/${imageName}_small.jpg`;
+  img.className = 'restaurant-img';
+  img.setAttribute('alt', `${restaurant.name}`);
+  picture.appendChild(img);
+  li.append(picture);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;

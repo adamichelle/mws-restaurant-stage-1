@@ -165,7 +165,7 @@ createRestaurantHTML = (restaurant) => {
   let imageName = imageSourceUrl.match(/\d/g);
   imageName = imageName.join("");
 
-  //Create a piture element for alternative sources of image
+  //Create a picture element for alternative sources of image
   const picture = document.createElement('picture');
   const source1 = document.createElement('source');
   source1.setAttribute('media', "(max-width: 600px)");
@@ -178,11 +178,15 @@ createRestaurantHTML = (restaurant) => {
   picture.appendChild(img);
   li.append(picture);
 
+
   const name = document.createElement('h1');
+
+  name.id = `restaurant-name-label-${imageName}`;
   name.innerHTML = restaurant.name;
   li.append(name);
 
   const neighborhood = document.createElement('p');
+  neighborhood.id = `restaurant-neighborhood-label-${imageName}`;
   neighborhood.innerHTML = restaurant.neighborhood;
   li.append(neighborhood);
 
@@ -193,9 +197,11 @@ createRestaurantHTML = (restaurant) => {
   const more = document.createElement('a');
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
-  li.append(more)
+  more.id = `more-btn-${imageName}`;
+  more.setAttribute('aria-labelledby', `${name.id} ${neighborhood.id} ${more.id}`);
+  li.append(more);
 
-  return li
+  return li;
 }
 
 /**

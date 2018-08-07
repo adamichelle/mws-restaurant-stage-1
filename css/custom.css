@@ -5,6 +5,10 @@ html,
     overflow-x: hidden;
 }
 
+.footer a {
+    color: #32bdff;
+}
+
 /* ================================= Navigation Elements ================================ */
 nav{
     height: auto;
@@ -72,11 +76,13 @@ nav{
 .inside .restaurant-cuisine {
     border-bottom-right-radius: 2em;
     color: #fff;
+    font-size: 1.2rem;
 }
 
 .inside .restaurant-address {
     text-align: center;
     color: #333;
+    font-size: 1.1rem;
 }
 
 .inside .restaurant-hours{
@@ -132,14 +138,13 @@ nav{
 }
 
 .review-item-rating {
-    background: orange;
+    background: #0d6baa;
     color: #fff;
     border-radius: 0.3em;
     width: 8.5em;
     text-transform: uppercase;
     padding: 0.5em;
     text-align: center;
-    font-weight: 800;
 }
 
 .inside .footer {

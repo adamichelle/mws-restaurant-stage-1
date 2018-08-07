@@ -80,15 +80,32 @@ fetchRestaurantFromURL = (callback) => {
  * Create restaurant HTML and add it to the webpage
  */
 fillRestaurantHTML = (restaurant = self.restaurant) => {
+
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
 
+  //Get the image source from the JSON File
+  const imageSourceUrl = DBHelper.imageUrlForRestaurant(restaurant);
+  //Get the name associated with the image using regular expression
+  let imageName = imageSourceUrl.match(/\d/g);
+  imageName = imageName.join("");
   const image = document.getElementById('restaurant-img');
-  image.className = 'restaurant-img'
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  const source1 = document.createElement('source');
+  source1.setAttribute('media', "(min-width: 750px)");
+  source1.setAttribute('srcset', `./images/${imageName}-1000_large_2x.jpg 2x, ./images/${imageName}-800_large_1x.jpg 1x`);
+  image.appendChild(source1);
+  const source2 = document.createElement('source');
+  source2.setAttribute('media', "(min-width: 500px)");
+  source2.setAttribute('srcset', `./images/${imageName}_medium.jpg`);
+  image.appendChild(source2);
+  const img = document.createElement('img');
+  img.className ='restaurant-img';
+  img.setAttribute('alt', `A picture from ${restaurant.name}`);
+  img.src = `./images/${imageName}_small.jpg`;
+  image.appendChild(img);
 
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;

@@ -85,9 +85,16 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   name.innerHTML = restaurant.name;
 
   const address = document.getElementById('restaurant-address');
-  address.innerHTML = restaurant.address;
+  address.setAttribute('aria-describedby', 'restaurant-address-help');
+  const addressDesc = document.createElement('span');
+  addressDesc.id = 'restaurant-address-help';
+  addressDesc.className = 'sr-only';
+  addressDesc.innerHTML = ` ${restaurant.name}'s address`;
+  address.append(addressDesc);
+  address.append(`${restaurant.address}`);
 
-  //Get the image source from the JSON File
+
+  //Get the image source url from the JSON File
   const imageSourceUrl = DBHelper.imageUrlForRestaurant(restaurant);
   //Get the name associated with the image using regular expression
   let imageName = imageSourceUrl.match(/\d/g);
@@ -104,14 +111,27 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   const img = document.createElement('img');
   img.className ='restaurant-img';
   img.setAttribute('alt', `A picture from ${restaurant.name}`);
+  img.setAttribute('title', `A picture from ${restaurant.name}`);
   img.src = `./images/${imageName}_small.jpg`;
   image.appendChild(img);
 
   const cuisine = document.getElementById('restaurant-cuisine');
+  cuisine.setAttribute('aria-describedby', 'restaurant-cuisine-help');
   cuisine.innerHTML = restaurant.cuisine_type;
+  
+  const cuisineDesc = document.createElement('span');
+  cuisineDesc.id = 'restaurant-cuisine-help';
+  cuisineDesc.className = 'sr-only';
+  cuisineDesc.innerHTML = `${restaurant.name}'s cuisine specialty`;
+  cuisine.appendChild(cuisineDesc);
 
   // fill operating hours
   if (restaurant.operating_hours) {
+    const hours = document.getElementById('restaurant-hours');
+    hours.setAttribute('aria-describedby', `restaurant-hours-help`);
+    const hoursDesc = document.getElementById('restaurant-hours-help');
+    hoursDesc.innerHTML = `${restaurant.name}'s Operating Hours`;
+  
     fillRestaurantHoursHTML();
   }
   // fill reviews
@@ -169,7 +189,7 @@ createReviewHTML = (review) => {
 
   const header = document.createElement('h3');
   header.className = 'review-item-header';
-  header.innerHTML = review.name;
+  header.innerHTML = `${review.name} `;
 
   const span = document.createElement('span');
   span.className = 'review-item-date';

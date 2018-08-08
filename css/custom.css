@@ -9,14 +9,45 @@ html,
     color: #32bdff;
 }
 
+.sr-only{
+    position: absolute;
+    left: 0;
+    top: -5000px;
+}
+
 /* ================================= Navigation Elements ================================ */
 nav{
     height: auto;
     padding: 2em 0;
 }
 
+.skip-link {
+    position: absolute;
+    top: -100px;
+    color: #fff;
+    background: #0d6baa;
+    left: 0;
+    padding: 0.3em;
+    z-index: 1000;
+}
+
+.skip-link:hover,
+.skip-link:focus {
+    font-weight: 600;
+    box-shadow: rgba(228, 228, 230, 0.8);
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
 .breadcrumb {
     width: inherit;
+}
+
+/* ============================ Map. TODO: Change map attribution background============ */
+.leaflet-container .leaflet-control-attribution {
+    background: rgba(255, 255, 255, 0.8)!important;
 }
 
 /* ================================ Filtering Options ================================== */
@@ -34,11 +65,28 @@ nav{
     margin-left: 1em;
 }
 
+.filter-options select:hover,
+.filter-options select:focus {
+    font-weight: 600;
+    color: #0d6baa;
+    box-shadow: 0 0 8px 3px rgba(203, 214, 238, 0.8);
+}
+
 /* ================================ Restaurant Listing ================================== */
 .restaurants-list {
     display: flex;
     flex-wrap: wrap;
     box-sizing: border-box;
+}
+
+.restaurants-list li a:hover,
+.restaurants-list li a:focus {
+    background: #fff;
+    color: #0d6baa;
+    font-weight: 600;
+    border: 1px solid #32bdff;
+    box-shadow: 0 0 8px 3px rgba(119, 144, 199, 0.8);
+    border-radius: 0.2em;
 }
 
 /* ================================ Restaurant Details ================================== */
@@ -149,4 +197,8 @@ nav{
 
 .inside .footer {
     width: 100%;
+}
+
+.footer a {
+    color: #fff;
 }

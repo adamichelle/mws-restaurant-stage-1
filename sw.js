@@ -1,6 +1,11 @@
 const appPrefix = 'RestaurantReviews_'; //name of the app
-const version = 'v_09';    //version of cache
+const version = 'v_10';    //version of cache
 const staticCacheName = `${appPrefix}_static_${version}`; //cache name for the page layout
+const dynamicCacheName = `${appPrefix}_dynamic_${version}`; //cache name for dynamic pages
+const allCaches = [
+    staticCacheName,
+    dynamicCacheName
+]
 
 self.addEventListener('install', function (event) {
     event.waitUntil(
@@ -32,7 +37,7 @@ self.addEventListener('activate', function(event) {
         return Promise.all(
           cacheNames.filter(function(cacheName) {
             return cacheName.startsWith(appPrefix) &&
-                    cacheName != staticCacheName;
+                   !allCaches.includes(cacheName);
           }).map(function(cacheName) {
             return caches.delete(cacheName);
           })
@@ -55,7 +60,17 @@ self.addEventListener('fetch', function(event) {
 
     event.respondWith(
       caches.match(event.request).then(function(response) {
-        return response || fetch(event.request);
+        // return response || fetch(event.request);
+        if(response) return response;
+
+        return fetch(event.request)
+                .then( function(res) {
+                    return caches.open(dynamicCacheName)
+                    .then( function(cache) {
+                        cache.put(requestUrl, res.clone());
+                        return res;
+                    });
+                });
       })
     );
 });

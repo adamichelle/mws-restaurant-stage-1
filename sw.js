@@ -1,5 +1,5 @@
 const appPrefix = 'RestaurantReviews_'; //name of the app
-const version = 'v_09';    //version of cache
+const version = 'v_10';    //version of cache
 const staticCacheName = `${appPrefix}_static_${version}`; //cache name for the page layout
 
 self.addEventListener('install', function (event) {

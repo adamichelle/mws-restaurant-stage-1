@@ -248,9 +248,9 @@ registerServiceWorker = () => {
   if(!navigator.serviceWorker) return;
   navigator.serviceWorker.register('./sw.js', {scope: './'})
   .then( function(){
-      console.log("Registered");
+      console.log("Service Worker Registered!");
   })
   .catch( function(){
-      console.log("Not registered");
+      console.log("Service Worker Not registered!");
   });
 }

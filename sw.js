@@ -87,14 +87,14 @@ self.addEventListener('fetch', (event) => {
 
 
 const serveSmallerImages = async (request) => {
-    const storageUrl = request.url.replace(/(_small\.jpg|_medium\.jpg)/, '');
+    const imageStorageUrl = request.url.replace(/(_small\.jpg|_medium\.jpg)/, '');
 
     return await caches.open(imagesCacheName)
     .then((imageCache) => {
-        return imageCache.match(storageUrl)
+        return imageCache.match(imageStorageUrl)
         .then((imageCacheResponse) => {
             const networkFetch = fetch(request).then(async (networkResponse) => {
-                await imageCache.put(storageUrl, networkResponse.clone());
+                await imageCache.put(imageStorageUrl, networkResponse.clone());
                 return networkResponse;
             });
             return imageCacheResponse || networkFetch;
@@ -104,14 +104,14 @@ const serveSmallerImages = async (request) => {
 }
 
 const serveLargeImages = async (request) => {
-    const storageUrl = request.url.replace(/(-\d{1,4}_large_1x\.jpg|-\d{1,4}_large_2x\.jpg)/, '_large');
+    const imageStorageUrl = request.url.replace(/(-\d{1,4}_large_1x\.jpg|-\d{1,4}_large_2x\.jpg)/, '_large');
     
     return await caches.open(imagesCacheName)
     .then((imageCache) => {
-        return imageCache.match(storageUrl)
+        return imageCache.match(imageStorageUrl)
         .then((imageCacheResponse) => {
             const networkFetch = fetch(request).then(async (networkResponse) => {
-                await imageCache.put(storageUrl, networkResponse.clone());
+                await imageCache.put(imageStorageUrl, networkResponse.clone());
                 return networkResponse;
             });
             return imageCacheResponse || networkFetch;

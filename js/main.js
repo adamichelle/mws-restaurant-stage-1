@@ -217,6 +217,18 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     function onClick() {
       window.location.href = marker.options.url;
     }
+
+    L.DomEvent.on(marker._icon, 'focus', function(ev) {
+      const element = ev.srcElement || ev.target,
+      id = element.getAttribute('id');
+      element.setAttribute('role', 'link');
+      element.addEventListener('keydown', function(e){
+        if(e.key === 'Enter'){
+          window.location.href = marker.options.url;
+        }
+      })
+    });
+    
     self.markers.push(marker);
   });
 

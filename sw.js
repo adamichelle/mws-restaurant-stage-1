@@ -1,5 +1,5 @@
 const appPrefix = 'RestaurantReviews_'; //name of the app
-const version = 'v_01';    //version of cache
+const version = 'v_02';    //version of cache
 const staticCacheName = `${appPrefix}static_${version}`; //cache name for the page layout
 const dynamicCacheName = `${appPrefix}dynamic_${version}`; //cache name for dynamic pages
 const imagesCacheName = `${appPrefix}images_${version}`; //cache name for images
@@ -58,13 +58,11 @@ self.addEventListener('fetch', (event) => {
         }
         
         if(/\/images\/\d{1,2}_/.test(requestUrl.pathname)){
-            console.log(requestUrl.pathname);
             event.respondWith(serveSmallerImages(event.request));
             return;
         }
 
         if(/\/images\/\d{1,2}-\d{1,4}_/.test(requestUrl.pathname)){
-            console.log(requestUrl.pathname);
             event.respondWith(serveLargeImages(event.request));
             return;
         }
@@ -107,7 +105,7 @@ const serveSmallerImages = async (request) => {
 
 const serveLargeImages = async (request) => {
     const storageUrl = request.url.replace(/(-\d{1,4}_large_1x\.jpg|-\d{1,4}_large_2x\.jpg)/, '_large');
-    console.log(storageUrl);
+    
     return await caches.open(imagesCacheName)
     .then((imageCache) => {
         return imageCache.match(storageUrl)

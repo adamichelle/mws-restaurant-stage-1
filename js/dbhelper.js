@@ -165,6 +165,7 @@ class DBHelper {
       url: DBHelper.urlForRestaurant(restaurant)
       })
       marker.addTo(newMap);
+    marker._icon.id =restaurant.id;
     return marker;
   } 
   /* static mapMarkerForRestaurant(restaurant, map) {

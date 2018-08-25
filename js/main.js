@@ -3,6 +3,8 @@ let restaurants,
   cuisines
 var newMap
 var markers = []
+const mapContainer = document.getElementById("map-container");
+const toggleMapButton = document.getElementById("toggle-map-button");
 
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
@@ -12,6 +14,23 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
   registerServiceWorker();
+
+  setTimeout( () => {
+    mapContainer.style.position = "absolute";
+    mapContainer.style.left = "-2000px";
+    mapContainer.style.visibility = "hidden";
+  }, 1500);
+
+  toggleMapButton.addEventListener('click', () => {
+    toggleMap();
+  });
+
+  toggleMapButton.addEventListener('keydown', (e) => {
+    if(e.key === 'Enter'){
+      mapContainer.removeAttribute('style');
+      toggleMap();
+    }
+  });
 });
 
 /**
@@ -89,6 +108,7 @@ initMap = () => {
 
   updateRestaurants();
 }
+
 /* window.initMap = () => {
   let loc = {
     lat: 40.722216,
@@ -247,10 +267,23 @@ addMarkersToMap = (restaurants = self.restaurants) => {
 registerServiceWorker = () => {
   if(!navigator.serviceWorker) return;
   navigator.serviceWorker.register('./sw.js', {scope: './'})
-  .then( function(){
+  .then( () => {
       console.log("Service Worker Registered!");
   })
-  .catch( function(){
+  .catch( () => {
       console.log("Service Worker Not registered!");
   });
+}
+
+toggleMap = () => {
+  if(mapContainer.style.visibility === "hidden"){
+    mapContainer.style.position = "relative";
+    mapContainer.style.left = '0';
+    mapContainer.style.width = '100%';
+    mapContainer.style.visibility = "visible";
+  } else {
+    mapContainer.style.position = "absolute";
+    mapContainer.style.left = "-2000px";
+    mapContainer.style.visibility = "hidden";
+  }
 }

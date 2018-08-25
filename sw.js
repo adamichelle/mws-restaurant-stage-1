@@ -23,6 +23,8 @@ self.addEventListener('install', (event) => {
                     './css/styles.css',
                     './css/custom.css',
                     './css/responsive.css',
+                    './fonts/lato_latin.woff2',
+                    './fonts/lato_latin-ext.woff2',
                     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
                     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js',
                     'https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png',

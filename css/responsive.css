@@ -50,7 +50,7 @@
     /* ================================ Restaurant Details ================================== */
     .restaurant-container, 
     .reviews-container {
-        width: 85%;
+        width: 75%;
     }
 
 }
@@ -94,7 +94,7 @@
     /* ================================ Restaurant Details ================================== */
     .restaurant-container, 
     .reviews-container {
-        width: 75%;
+        width: 65%;
     }
 
     .reviews-container {

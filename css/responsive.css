@@ -7,34 +7,44 @@
         font-size: 1em;
     }
 
-    /* ================================ Restaurant Listing ================================== */
-    .restaurants-list {
-        justify-content: center;
-    }
-
+    /* ================================= Restaurant Listing ================================ */
     .restaurants-list li {
-        width: 75%;
-    }
-    
-    /* ================================ Restaurant Details ================================== */
-    .restaurant-container, 
-    .reviews-container {
-        width: 90%;
-    }
-
-    .reviews-container {
-        border-bottom: none;
+        width: 100%;
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 999px) {
-    
-    .restaurants-list {
-        justify-content: center;
+@media screen and (min-width: 600px) and (max-width: 899px) {
+
+    /* ================================ Restaurant Filtering ============================== */
+    .filter-options {
+        width: 85%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2em 0.5em;
     }
 
+    .filter-options h2 {
+        margin-left: 1em;
+    }
+
+    .filter-options .form-element{
+        width: calc((100% - 100px)/2);
+        margin: 0.7em 0.8em;
+    }
+
+    .filter-options .form-element:first-of-type{
+      margin-left: 1.5em;
+    }
+
+    /* ================================ Restaurant Listing =============================== */
     .restaurants-list li {
-        max-width: calc(100% - 120px);
+        width: calc((100% - 40px)/2);
+        margin-right: 30px;
+        margin-bottom: 3em;
+    }
+
+    .restaurants-list li:nth-of-type(even) {
+        margin-right: 0px;
     }
 
     /* ================================ Restaurant Details ================================== */
@@ -43,14 +53,42 @@
         width: 85%;
     }
 
-    .reviews-container {
-        border-bottom: none;
-    }
 }
- 
-@media screen and (min-width: 1000px) and (max-width: 1140px) {
+
+@media screen and (min-width: 900px) {
+
+    /* =============================== Restaurant Filtering ============================= */
+    .filter-options {
+        width: 70%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2.5em 0.5em;
+    }
+
+    .filter-options h2 {
+        margin-left: 1em;
+    }
+
+    .filter-options .form-element{
+        width: calc((100% - 100px)/2);
+        margin: 0.7em 0.8em;
+    }
+
+    .filter-options .form-element:first-of-type{
+      margin-left: 1.5em;
+    }
+
+    /* =============================== Restaurant Listing =============================== */
+    .toggle-map { 
+        margin-left: 1.2em;
+    }
     .restaurants-list {
-        justify-content: center;
+        padding-left: 1.2em;
+    }
+    .restaurants-list li {
+        width: calc((100% - 100px)/3);
+        margin-right: 30px;
+        margin-bottom: 2em;
     }
 
     /* ================================ Restaurant Details ================================== */
@@ -62,23 +100,5 @@
     .reviews-container {
         border-bottom: none;
     }
-}
 
-@media screen and (min-width: 1141px) {
-    .restaurants-list {
-      justify-content: space-evenly;
-    }
-
-    .restaurant-container, 
-    .reviews-container {
-        width: 65%;
-    }
-
-    .reviews-container {
-        border-bottom: none;
-    }
-
-    .footer {
-        font-size: 0.8em;
-    }
 }

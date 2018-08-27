@@ -6,7 +6,7 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
-  // registerServiceWorker();
+  registerServiceWorker();
 });
 
 /**

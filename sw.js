@@ -18,6 +18,7 @@ self.addEventListener('install', (event) => {
                     './restaurant.html',
                     './data/restaurants.json',
                     './js/dbhelper.js',
+                    './js/idb.js',
                     './js/main.js',
                     './js/restaurant_info.js',
                     './css/styles.css',
@@ -25,6 +26,7 @@ self.addEventListener('install', (event) => {
                     './css/responsive.css',
                     './fonts/lato_latin.woff2',
                     './fonts/lato_latin-ext.woff2',
+                    './manifest.json',
                     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.css',
                     'https://unpkg.com/leaflet@1.3.1/dist/leaflet.js',
                     'https://unpkg.com/leaflet@1.3.1/dist/images/marker-icon.png',
@@ -69,6 +71,10 @@ self.addEventListener('fetch', (event) => {
             return;
         }
 
+        if(requestUrl.pathname.startsWith('/images/icons/')){
+            event.respondWith(serveIcons(event.request))
+            return;
+        }
     }
 
     
@@ -79,9 +85,12 @@ self.addEventListener('fetch', (event) => {
         .then((networkResponse) => {
             return caches.open(dynamicCacheName)
             .then((dynamicCache) => {
+                if(/\/restaurants/.test(event.request.url)){
+                    return networkResponse;
+                }
                 dynamicCache.put(event.request.url, networkResponse.clone());
                 return networkResponse;
-            })
+            });
         });
       })
     );
@@ -120,4 +129,18 @@ const serveLargeImages = async (request) => {
         });
     });
     
+}
+
+const serveIcons = async (request) => {
+    return await caches.open(imagesCacheName)
+    .then((imageCache) => {
+        return imageCache.match(imageStorageUrl)
+        .then((imageCacheResponse) => {
+            const networkFetch = fetch(request).then(async (networkResponse) => {
+                await imageCache.put(request.url, networkResponse.clone());
+                return networkResponse;
+            });
+            return imageCacheResponse || networkFetch;
+        });
+    });
 }

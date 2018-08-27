@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
-  registerServiceWorker();
+  // registerServiceWorker();
 
   setTimeout( () => {
     mapContainer.style.position = "absolute";

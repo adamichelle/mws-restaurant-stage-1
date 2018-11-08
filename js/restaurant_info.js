@@ -123,6 +123,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   // fill reviews
   fillReviewsHTML();
   toggleNewReviewForm();
+  addNewReview();
 }
 
 /**
@@ -381,6 +382,7 @@ createNewReviewForm = (restaurant = self.restaurant) => {
   const textarea = document.createElement('textarea');
   textarea.id = 'comments';
   textarea.placeholder = 'Enter your comments';
+  textarea.required = true;
   subDiv4.appendChild(textarea);
   div4.appendChild(label3);
   div4.appendChild(subDiv4);
@@ -391,8 +393,7 @@ createNewReviewForm = (restaurant = self.restaurant) => {
   const button = document.createElement('button');
   button.className = 'add-review';
   button.id = 'add-review';
-  button.innerHTML = 'Add Review';
-  button.type = 'button';
+  button.innerHTML = 'Add Review';;
   div5.appendChild(button);
 
   const div6 = document.createElement('div');
@@ -420,6 +421,26 @@ toggleNewReviewForm = () => {
     else {
       form.style.display = 'none';
     }
+  });
+}
+
+addNewReview = () => {
+  const newReviewForm = document.getElementById('new-review-form');
+  newReviewForm.addEventListener('submit', (event) => {
+    const name = document.getElementById('name').value;
+    const restaurantId = document.getElementById('restaurant-id').value;
+    const rating = document.querySelector('input[name="rating"]:checked').value;
+    const comments = document.getElementById('comments').value;
+    
+    const parameters = {
+      "restaurant_id": `${restaurantId}`,
+      "name": `${name}`,
+      "rating": `${rating}`,
+      "comments": `${comments}`
+    }
+    
+    event.preventDefault();
+    
   });
 }
 

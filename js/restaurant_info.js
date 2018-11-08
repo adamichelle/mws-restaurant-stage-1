@@ -122,8 +122,6 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
-  toggleNewReviewForm();
-  addNewReview();
 }
 
 /**
@@ -409,34 +407,6 @@ createNewReviewForm = (restaurant = self.restaurant) => {
   form.appendChild(div6);
  
   return form;
-}
-
-toggleNewReviewForm = () => {
-  const newReviewBtn = document.getElementById('new-review-btn');
-  const form = document.getElementById('new-review-form');
-  newReviewBtn.addEventListener("click", () => {
-    if(form.style.display === 'none'){
-      form.style.display = 'block';
-    }
-    else {
-      form.style.display = 'none';
-    }
-  });
-}
-
-addNewReview = () => {
-  const submitReviewBtn = document.getElementById('add-review');
-  submitReviewBtn.addEventListener('click', (e) => {
-    const name = document.getElementById('name').value;
-    const restaurantId = document.getElementById('restaurant-id').value;
-    const ratings = document.getElementsByName('rating');
-    const ratingsArray = Object.values(ratings);
-    const isChecked = ratingsArray.some((element) => {
-      return element.checked === true;
-    })
-    console.log(ratings)
-    console.log(isChecked)
-  });
 }
 
 //register service worker

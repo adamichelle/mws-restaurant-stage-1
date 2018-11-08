@@ -35,14 +35,19 @@ class DBHelper {
     const port = 8000 // Change this to your server port
     // return `http://localhost:${port}/data/restaurants.json`;
     // return `./data/restaurants.json`;
-    return `http://localhost:1337/restaurants`;
+    const databaseUrls = [
+      `http://localhost:1337/restaurants/`,
+      `http://localhost:1337/reviews/`
+    ]
+    return databaseUrls;
   }
 
+  
   /**
    * Fetch all restaurants.
    */
   static fetchRestaurants(callback) {
-    fetch(DBHelper.DATABASE_URL)
+    fetch(DBHelper.DATABASE_URL[0])
     .then(response => response.json())
     .then(restaurants => {
       console.log("Retriving restaurants from api!");
@@ -71,6 +76,19 @@ class DBHelper {
         });
       });
     });
+  }
+
+  static fetchReviews(id, callback) {
+    const reviewsUrl = `${DBHelper.DATABASE_URL[1]}?restaurant_id=${id}`;
+    fetch(reviewsUrl)
+    .then((response) => response.json())
+    .then((reviews) => {
+      console.log("Retriving reviews from api!");
+      callback(null, reviews);
+    })
+    .catch((e) => {
+      console.log("Retriving reviews from indexDB!");
+    })
   }
 
   /**
@@ -209,6 +227,23 @@ class DBHelper {
     marker._icon.id =restaurant.id;
     return marker;
   } 
+
+  static addNewReview(form_parameters) {
+    const parameters = form_parameters;
+    const url = 'http://localhost:1337/reviews/';
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(parameters)
+    }).then((res) => res.json())
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err))
+  }
+
+
   /* static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,

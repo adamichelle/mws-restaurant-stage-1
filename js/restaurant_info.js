@@ -6,7 +6,7 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
-  registerServiceWorker();
+  //registerServiceWorker();
 });
 
 /**
@@ -149,7 +149,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews, restaurant = self.restaurant) => {
+fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
   const container = document.getElementById('reviews-container');
   
   const reviewsSectionHeader = document.createElement('div');
@@ -179,23 +179,32 @@ fillReviewsHTML = (reviews = self.restaurant.reviews, restaurant = self.restaura
   //add form to the page
   container.appendChild(createNewReviewForm());
 
-  if (!reviews) {
-    const noReviews = document.createElement('p');
-    noReviews.innerHTML = 'No reviews yet!';
-    container.appendChild(noReviews);
-    return;
-  }
-  const ul = document.getElementById('reviews-list');
-  reviews.forEach(review => {
-    ul.appendChild(createReviewHTML(review));
-  });
-  container.appendChild(ul);
+  DBHelper.fetchReviews(restaurant_id, (error, reviews) => {
+    console.log(reviews);
+    if (!reviews) {
+      const noReviews = document.createElement('p');
+      noReviews.innerHTML = 'No reviews yet!';
+      container.appendChild(noReviews);
+      return;
+    }
+    const ul = document.getElementById('reviews-list');
+    reviews.forEach(review => {
+      ul.appendChild(createReviewHTML(review));
+    });
+    container.appendChild(ul);
+  })
 }
 
 /**
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  let date = '';
+  if(/\d+/.test(review.createdAt) === true) {
+    date = new Intl.DateTimeFormat('en-US', options).format(review.createdAt);
+  }
+  
   const li = document.createElement('li');
   li.className = 'review-item';
 
@@ -205,8 +214,9 @@ createReviewHTML = (review) => {
 
   const span = document.createElement('span');
   span.className = 'review-item-date';
-  span.innerHTML = review.date;
+  span.innerHTML = date;
 
+  
   header.appendChild(span);
   li.appendChild(header);
 
@@ -433,12 +443,14 @@ addNewReview = () => {
     const comments = document.getElementById('comments').value;
     
     const parameters = {
-      "restaurant_id": `${restaurantId}`,
-      "name": `${name}`,
-      "rating": `${rating}`,
-      "comments": `${comments}`
+      "restaurant_id": parseInt(restaurantId),
+      "name": name,
+      "rating": parseInt(rating),
+      "comments": comments
     }
     
+    DBHelper.addNewReview(parameters);
+    window.location.reload(true)
     event.preventDefault();
     
   });

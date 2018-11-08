@@ -122,6 +122,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   }
   // fill reviews
   fillReviewsHTML();
+  toggleNewReviewForm();
 }
 
 /**
@@ -407,6 +408,19 @@ createNewReviewForm = (restaurant = self.restaurant) => {
   form.appendChild(div6);
  
   return form;
+}
+
+toggleNewReviewForm = () => {
+  const newReviewBtn = document.getElementById('new-review-btn');
+  const form = document.getElementById('new-review-form');
+  newReviewBtn.addEventListener("click", () => {
+    if(form.style.display === 'none'){
+      form.style.display = 'block';
+    }
+    else {
+      form.style.display = 'none';
+    }
+  });
 }
 
 //register service worker

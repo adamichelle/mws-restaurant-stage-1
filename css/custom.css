@@ -50,7 +50,7 @@ a {
 	text-decoration: none;
 }
 
-a:focus {
+a:focus{
   text-decoration: underline;
   border: 2px solid #3397db;
 }
@@ -66,6 +66,47 @@ a img {
 }
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
+}
+
+input,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+input {
+  overflow: visible;
+}
+
+input[type="text"], textarea {
+  width: 100%;
+  padding: 0.3em 0 0.3em 0.2em;
+  font-size: 1em;
+  line-height: 1.5em;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25em;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+}
+
+input[type="radio"] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+textarea {
+  overflow: auto;
+  resize: vertical;
+}
+fieldset {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
 }
 
 /* Screen Reader Styling */
@@ -462,6 +503,93 @@ top: 0;
   text-transform: uppercase;
   padding: 0.5em;
   text-align: center;
+}
+.reviews-section-header {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.reviews-section-header .title {
+  flex: 0 0 80%;
+  width: 80%;
+}
+
+.reviews-section-header .new-review-btn-div{
+  flex: 0 0 20%;
+  width: 20%
+}
+
+.new-review-btn, .add-review {
+  padding: 0.5em;
+  margin: 1.5em 1em;
+  color: #ffffff;
+  background: #946114;
+  border: 1px solid #947119;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #947119;
+  font-weight: 600;
+}
+
+.new-review-btn:hover, .add-review:hover {
+  background: #ffffff;
+  color: #946114;
+  border: 1px solid #947119;
+}
+
+.new-review-form {
+  margin-top: 0.5em;
+  border: 1px solid #ced4da;
+  border-radius: 0.2em;
+  padding: 1em;
+  box-shadow: 2px 2px 5px #DCDCDC;
+}
+
+.review-form-heading {
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.form-elements {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 0.5em;
+}
+
+.label-col {
+  flex: 0 0 16.6666667% !important;
+  max-width: 16% !important;
+  margin-bottom: 0;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.input-col {
+  flex: 0 0 83.333333%;
+  max-width: 84%;
+}
+
+.legend-col {
+  font-weight: 600;
+  margin-bottom: 0.3em;
+}
+
+.radio-group-col {
+  margin-top: 0.5em;
+  margin-left: 0.3em;
+}
+
+.radio-group-col input {
+  margin-right: 0.3em;
+}
+
+.radio-group-col label {
+  margin-right: 1em
+}
+
+.form-elements:nth-of-type(5) {
+  justify-content: flex-end;
 }
 
 .inside .footer {

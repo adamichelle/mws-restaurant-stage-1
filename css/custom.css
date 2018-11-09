@@ -507,6 +507,7 @@ top: 0;
 .reviews-section-header {
   display: flex;
   flex-wrap: wrap;
+  padding: 0 0 0 1em;
 }
 
 .reviews-section-header .title {
@@ -538,6 +539,7 @@ top: 0;
 
 .new-review-form {
   margin-top: 0.5em;
+  margin-bottom: 1.5em;
   border: 1px solid #ced4da;
   border-radius: 0.2em;
   padding: 1em;

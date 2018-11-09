@@ -6,7 +6,7 @@ var newMap;
  */
 document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
-  //registerServiceWorker();
+  registerServiceWorker();
 });
 
 /**
@@ -180,7 +180,6 @@ fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
   container.appendChild(createNewReviewForm());
 
   DBHelper.fetchReviews(restaurant_id, (error, reviews) => {
-    console.log(reviews);
     if (!reviews) {
       const noReviews = document.createElement('p');
       noReviews.innerHTML = 'No reviews yet!';
@@ -199,10 +198,15 @@ fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
  * Create review HTML and add it to the webpage.
  */
 createReviewHTML = (review) => {
+  const createdAt = review.createdAt;
   const options = { year: 'numeric', month: 'long', day: 'numeric' };
   let date = '';
-  if(/\d+/.test(review.createdAt) === true) {
+
+  if(typeof createdAt === 'number') {
     date = new Intl.DateTimeFormat('en-US', options).format(review.createdAt);
+  } else {
+    const dateString = review.createdAt;
+    date = new Intl.DateTimeFormat('en-US', options).format(new Date(dateString));
   }
   
   const li = document.createElement('li');
@@ -418,6 +422,7 @@ createNewReviewForm = (restaurant = self.restaurant) => {
   form.appendChild(div5);
   form.appendChild(div6);
  
+  form.style.display = 'none';
   return form;
 }
 
@@ -449,6 +454,7 @@ addNewReview = () => {
       "comments": comments
     }
     
+    console.log(parameters);
     DBHelper.addNewReview(parameters);
     window.location.reload(true)
     event.preventDefault();

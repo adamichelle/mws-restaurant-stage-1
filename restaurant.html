@@ -74,6 +74,20 @@
   <script type="text/javascript" src="js/dbhelper.js"></script>
   <!-- Main javascript file -->
   <script type="text/javascript" src="js/restaurant_info.js"></script>
+  <!-- Lazy Load -->
+  <script>
+      (function (w, d) {
+        w.addEventListener('LazyLoad::Initialized', function (e) {
+          w.lazyLoadInstance = e.detail.instance;
+        }, false);
+        var b = d.getElementsByTagName('body')[0];
+        var s = d.createElement("script"); s.async = true;
+        var v = !("IntersectionObserver" in w) ? "8.16.0" : "10.19.0";
+        s.src = "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" + v + "/dist/lazyload.min.js";
+        w.lazyLoadOptions = {};
+        b.appendChild(s);
+      }(window, document));
+  </script>
   <!-- Google Maps -->
  <!--  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA_tKbW6A5pQ-eupxI56myUnHLqYCzOjKo&libraries=places&callback=initMap"></script> -->
   <!-- End scripts -->

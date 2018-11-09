@@ -95,7 +95,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   source2.setAttribute('srcset', `./images/${imageName}_medium.jpg`);
   image.appendChild(source2);
   const img = document.createElement('img');
-  img.className ='restaurant-img';
+  img.classList.add('lazy','restaurant-img');
   img.setAttribute('alt', `A picture from ${restaurant.name}`);
   img.setAttribute('title', `A picture from ${restaurant.name}`);
   img.src = `./images/${imageName}_small.jpg`;

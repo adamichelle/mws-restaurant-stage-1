@@ -307,6 +307,26 @@ top: 0;
   box-shadow: 3px 3px 6px 0px rgba(128,128,128,1);
 }
 
+.pic-container {
+  position: relative;
+}
+
+.favorite-button {
+  float: right;
+  position: absolute;
+  left: 320px;
+  top: 20px;
+  z-index: 1000;
+  padding: 0.3em 0.4em;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 50%;
+  color: #b8b7b6;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.2em;
+}
+
 .restaurants-list .restaurant-img {
   width: 100%;
   display: block;

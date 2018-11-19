@@ -169,8 +169,10 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
+    markAsFavorite(restaurant.id);
   });
   addMarkersToMap();
+  
 }
 
 /**
@@ -186,6 +188,9 @@ createRestaurantHTML = (restaurant) => {
   let imageName = imageSourceUrl.match(/\d/g);
   imageName = imageName.join("");
 
+  const picContainer = document.createElement('div');
+  picContainer.className = 'pic-container';
+
   //Create a picture element for alternative sources of image
   const picture = document.createElement('picture');
   const source1 = document.createElement('source');
@@ -198,7 +203,16 @@ createRestaurantHTML = (restaurant) => {
   img.setAttribute('alt', `A picture from ${restaurant.name}`);
   img.setAttribute('title', `A picture from ${restaurant.name}'s`);
   picture.appendChild(img);
-  li.append(picture);
+
+  const favoriteButton = document.createElement('button');
+  favoriteButton.className = 'favorite-button';
+  favoriteButton.id = `favorite-button-${restaurant.id}`;
+  favoriteButton.setAttribute('aria-label', `add ${restaurant.name} to favorites`);
+  favoriteButton.innerHTML = '❤';
+  picContainer.appendChild(favoriteButton);
+  picContainer.appendChild(picture);
+ 
+  li.append(picContainer);
 
 
   const name = document.createElement('h2');
@@ -224,6 +238,14 @@ createRestaurantHTML = (restaurant) => {
   li.append(more);
 
   return li;
+}
+
+markAsFavorite = (id) => {
+  const favoriteBtn = document.getElementById(`favorite-button-${id}`);
+
+  favoriteBtn.addEventListener("click", () => {
+    console.log('Pressed')
+  })
 }
 
 /**
@@ -252,7 +274,8 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 
-} 
+}
+ 
 /* addMarkersToMap = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     // Add marker to the map
@@ -264,16 +287,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
   });
 } */
 
-registerServiceWorker = () => {
-  if(!navigator.serviceWorker) return;
-  navigator.serviceWorker.register('./sw.js', {scope: './'})
-  .then( () => {
-      console.log("Service Worker Registered!");
-  })
-  .catch( () => {
-      console.log("Service Worker Not registered!");
-  });
-}
+
 
 toggleMap = () => {
   if(mapContainer.style.visibility === "hidden"){
@@ -286,4 +300,16 @@ toggleMap = () => {
     mapContainer.style.left = "-2000px";
     mapContainer.style.visibility = "hidden";
   }
+}
+
+
+registerServiceWorker = () => {
+  if(!navigator.serviceWorker) return;
+  navigator.serviceWorker.register('./sw.js', {scope: './'})
+  .then( () => {
+      console.log("Service Worker Registered!");
+  })
+  .catch( () => {
+      console.log("Service Worker Not registered!");
+  });
 }

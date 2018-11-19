@@ -56,6 +56,48 @@
     <!-- end restaurant -->
     <!-- Beginning reviews -->
     <section id="reviews-container" class="reviews-container">
+        <form class="new-review-form" id="new-review-form" style="display: block;">
+          <h4 class="review-form-heading">Add a New Review</h4>
+          <div class="form-elements">
+            <label for="name" class="label-col">Name: </label>
+            <div class="input-col">
+              <input type="text" id="name" placeholder="Name" required="">
+            </div>
+          </div>
+          <div class="form-elements">
+            <label for="restaurant-id" class="label-col">Restaurant: </label>
+            <div class="input-col">
+              <input type="text" id="restaurant-id" readonly="">
+            </div>
+          </div>
+          <div class="form-elements">
+            <fieldset>
+              <legend for="rating" class="legend-col">Rating: </legend>
+              <div class="radio-group-col">
+                <input type="radio" name="rating" id="1star" value="1" required="">
+                <label for="1star">1 Star</label>
+                <input type="radio" name="rating" id="2stars" value="2" required="">
+                <label for="2stars">2 stars</label>
+                <input type="radio" name="rating" id="3stars" value="3" required="">
+                <label for="3stars">3 Stars</label>
+                <input type="radio" name="rating" id="4stars" value="4" required="">
+                <label for="4stars">4 Stars</label>
+                <input type="radio" name="rating" id="5stars" value="5" required="">
+                <label for="5stars">5 stars</label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="form-elements">
+            <label for="comments" class="label-col">Comments: </label>
+            <div class="input-col">
+              <textarea id="comments" placeholder="Enter your comments" required=""></textarea>
+            </div>
+          </div>
+          <div class="form-elements">
+            <button class="add-review" id="add-review">Add Review</button>
+          </div>
+          <div class="error-msg" id="error-msg"></div>
+        </form>
       <ul id="reviews-list" class="reviews-list"></ul>
     </section>
     <!-- End reviews -->

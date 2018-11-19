@@ -151,7 +151,8 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
  */
 fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
   const container = document.getElementById('reviews-container');
-  
+  const reviewForm = document.getElementById('new-review-form');
+
   const reviewsSectionHeader = document.createElement('div');
   reviewsSectionHeader.id = 'reviews-section-header';
   reviewsSectionHeader.className = 'reviews-section-header';
@@ -174,10 +175,11 @@ fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
   btnDiv.appendChild(newReviewBtn);
   reviewsSectionHeader.appendChild(btnDiv);
 
-  container.appendChild(reviewsSectionHeader);
+  //insert the header before the form
+  reviewForm.insertAdjacentElement("beforebegin", reviewsSectionHeader);
 
-  //add form to the page
-  container.appendChild(createNewReviewForm());
+  //hide the form
+  reviewForm.style.display = 'none';
 
   DBHelper.fetchReviews(restaurant_id, (error, reviews) => {
     if (!reviews) {
@@ -266,164 +268,6 @@ getParameterByName = (name, url) => {
   if (!results[2])
     return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-createNewReviewForm = (restaurant = self.restaurant) => {
-  //create form for new review
-  const form = document.createElement('form');
-  form.className = 'new-review-form';
-  form.id = 'new-review-form';
-  const formHeading = document.createElement('h4');
-  formHeading.className = 'review-form-heading';
-  formHeading.innerHTML = 'Add a New Review';
-  const div1 = document.createElement('div');
-  div1.className = 'form-elements';
-  const label1 = document.createElement('label');
-  label1.setAttribute('for', 'name');
-  label1.className = 'label-col';
-  label1.innerHTML = 'Name: '
-  const subDiv1 = document.createElement('div');
-  subDiv1.className = 'input-col';
-  const input1 = document.createElement('input');
-  input1.type = 'text';
-  input1.id = 'name';
-  input1.placeholder = 'Name'
-  input1.required = true;
-  subDiv1.appendChild(input1);
-  div1.appendChild(label1);
-  div1.appendChild(subDiv1);
-  
-
-  const div2 = document.createElement('div');
-  div2.className = 'form-elements';
-  const label2 = document.createElement('label');
-  label2.setAttribute('for', 'restaurant-id');
-  label2.className = 'label-col';
-  label2.innerHTML = 'Restaurant: '
-  const subDiv2 = document.createElement('div');
-  subDiv2.className = 'input-col';
-  const input2 = document.createElement('input');
-  input2.type = 'text';
-  input2.id = 'restaurant-id';
-  input2.value = restaurant.id;
-  input2.readOnly = true;
-  subDiv2.appendChild(input2);
-  div2.appendChild(label2);
-  div2.appendChild(subDiv2);
-
-  const fieldset = document.createElement('fieldset');
-  const div3 = document.createElement('div');
-  div3.className = 'form-elements';
-  const legend = document.createElement('legend');
-  legend.setAttribute('for', 'rating');
-  legend.className = 'legend-col';
-  legend.innerHTML = 'Rating: ';
-  const subDiv3 = document.createElement('div');
-  subDiv3.className = 'radio-group-col';
-  const subInput1 = document.createElement('input');
-  subInput1.type = 'radio';
-  subInput1.name = 'rating';
-  subInput1.id = '1star';
-  subInput1.value = '1';
-  subInput1.required = true;
-  const subLabel1 = document.createElement('label');
-  subLabel1.setAttribute('for', `${subInput1.id}`);
-  subLabel1.innerHTML = '1 Star';
-
-
-  const subInput2 = document.createElement('input');
-  subInput2.type = 'radio';
-  subInput2.name = 'rating';
-  subInput2.id = '2stars';
-  subInput2.value = '2';
-  subInput2.required = true;
-  const subLabel2 = document.createElement('label');
-  subLabel2.setAttribute('for', `${subInput2.id}`);
-  subLabel2.innerHTML = '2 stars';
-
-  const subInput3 = document.createElement('input');
-  subInput3.type = 'radio';
-  subInput3.name = 'rating';
-  subInput3.id = '3stars';
-  subInput3.value = '3';
-  subInput3.required = true;
-  const subLabel3 = document.createElement('label');
-  subLabel3.setAttribute('for', `${subInput3.id}`);
-  subLabel3.innerHTML = '3 Stars';
-
-  const subInput4 = document.createElement('input');
-  subInput4.type = 'radio';
-  subInput4.name = 'rating';
-  subInput4.id = '4stars';
-  subInput4.value = '4';
-  subInput4.required = true;
-  const subLabel4 = document.createElement('label');
-  subLabel4.setAttribute('for', `${subInput4.id}`);
-  subLabel4.innerHTML = '4 Stars';
-
-  const subInput5 = document.createElement('input');
-  subInput5.type = 'radio';
-  subInput5.name = 'rating';
-  subInput5.id = '5stars';
-  subInput5.value = '5';
-  subInput5.required = true;
-  const subLabel5 = document.createElement('label');
-  subLabel5.setAttribute('for', `${subInput5.id}`);
-  subLabel5.innerHTML = '5 stars';
-
-  subDiv3.appendChild(subInput1);
-  subDiv3.appendChild(subLabel1);
-  subDiv3.appendChild(subInput2);
-  subDiv3.appendChild(subLabel2);
-  subDiv3.appendChild(subInput3);
-  subDiv3.appendChild(subLabel3);
-  subDiv3.appendChild(subInput4);
-  subDiv3.appendChild(subLabel4);
-  subDiv3.appendChild(subInput5);
-  subDiv3.appendChild(subLabel5);
-  fieldset.appendChild(legend);
-  fieldset.appendChild(subDiv3);
-  div3.appendChild(fieldset);
-
-  const div4 = document.createElement('div');
-  div4.className = 'form-elements';
-  const label3 = document.createElement('label');
-  label3.setAttribute('for', 'comments');
-  label3.className = 'label-col';
-  label3.innerHTML = 'Comments: ';
-  const subDiv4 = document.createElement('div');
-  subDiv4.className = 'input-col';
-  const textarea = document.createElement('textarea');
-  textarea.id = 'comments';
-  textarea.placeholder = 'Enter your comments';
-  textarea.required = true;
-  subDiv4.appendChild(textarea);
-  div4.appendChild(label3);
-  div4.appendChild(subDiv4);
-
-
-  const div5 = document.createElement('div');
-  div5.className = 'form-elements';
-  const button = document.createElement('button');
-  button.className = 'add-review';
-  button.id = 'add-review';
-  button.innerHTML = 'Add Review';;
-  div5.appendChild(button);
-
-  const div6 = document.createElement('div');
-  div6.className = 'error-msg';
-  div6.id = 'error-msg';
-
-  form.appendChild(formHeading);
-  form.appendChild(div1);
-  form.appendChild(div2);
-  form.appendChild(div3);
-  form.appendChild(div4);
-  form.appendChild(div5);
-  form.appendChild(div6);
- 
-  form.style.display = 'none';
-  return form;
 }
 
 toggleNewReviewForm = () => {

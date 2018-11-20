@@ -169,7 +169,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
-    markAsFavorite(restaurant.id);
+    toggleRestaurantAsFavorite(restaurant.id);
 
   });
   addMarkersToMap();
@@ -204,12 +204,18 @@ createRestaurantHTML = (restaurant) => {
   img.setAttribute('alt', `A picture from ${restaurant.name}`);
   img.setAttribute('title', `A picture from ${restaurant.name}'s`);
   picture.appendChild(img);
-
+  //create a button for adding favorites
   const favoriteButton = document.createElement('button');
   favoriteButton.className = 'favorite-button';
   favoriteButton.id = `favorite-button-${restaurant.id}`;
   favoriteButton.setAttribute('aria-label', `add ${restaurant.name} to favorites`);
   favoriteButton.innerHTML = '❤';
+  if(restaurant.is_favorite === undefined) {
+    restaurant.is_favorite = false;
+  }
+  if(restaurant.is_favorite === true) {
+    favoriteButton.classList.add('is-favorite');
+  }
   picContainer.appendChild(favoriteButton);
   picContainer.appendChild(picture);
  
@@ -241,7 +247,7 @@ createRestaurantHTML = (restaurant) => {
   return li;
 }
 
-markAsFavorite = (id) => {
+toggleRestaurantAsFavorite = (id) => {
   const favoriteBtn = document.getElementById(`favorite-button-${id}`);
 
   favoriteBtn.addEventListener("click", () => {
@@ -252,6 +258,7 @@ markAsFavorite = (id) => {
       
     } else {
       favoriteBtn.classList.add('is-favorite');
+      DBHelper.addToFavorites(id);
     }
 
   })

@@ -228,16 +228,32 @@ class DBHelper {
     return marker;
   } 
 
-  static addNewReview(form_parameters) {
-    const parameters = form_parameters;
-    const url = 'http://localhost:1337/reviews/';
+  
+  static addToFavorites(id) {
+    const favoritesUrl = `${DBHelper.DATABASE_URL[0]}${id}/?is_favorite=true`;
+    fetch(favoritesUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Request succeeded', data)
+    })
+    .catch((error) => {
+      console.log('Request failed', error)
+    })
+  }
 
-    fetch(url, {
+
+  static addNewReview(form_parameters) {
+    fetch(DBHelper.DATABASE_URL[1], {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(parameters)
+        body: JSON.stringify(form_parameters)
     }).then((res) => res.json())
     .then((data) => console.log(data))
     .catch((err) => console.log(err))

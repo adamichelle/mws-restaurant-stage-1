@@ -170,6 +170,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
     markAsFavorite(restaurant.id);
+
   });
   addMarkersToMap();
   
@@ -244,7 +245,15 @@ markAsFavorite = (id) => {
   const favoriteBtn = document.getElementById(`favorite-button-${id}`);
 
   favoriteBtn.addEventListener("click", () => {
-    console.log('Pressed')
+    let isFavorite = favoriteBtn.classList.contains('is-favorite');
+
+    if(isFavorite === true) {
+      favoriteBtn.classList.remove('is-favorite');
+      
+    } else {
+      favoriteBtn.classList.add('is-favorite');
+    }
+
   })
 }
 

@@ -327,6 +327,12 @@ top: 0;
   font-size: 1.2em;
 }
 
+.is-favorite {
+  font-size: 1.3em;
+  color: #e1375b;
+  transition: color 50ms linear;
+}
+
 .restaurants-list .restaurant-img {
   width: 100%;
   display: block;

@@ -180,26 +180,27 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
  * Create restaurant HTML.
  */
 createRestaurantHTML = (restaurant) => {
-  const li = document.createElement('li');
-
   //Get the image source from the JSON File
   const imageSourceUrl = DBHelper.imageUrlForRestaurant(restaurant);
-
   //Get the name associated with the image using regular expression
   let imageName = imageSourceUrl.match(/\d/g);
   imageName = imageName.join("");
 
+  //Create each resturant html
+  const li = document.createElement('li');
+
+  //Create div containing picture and favorite icon
   const picContainer = document.createElement('div');
   picContainer.className = 'pic-container';
-
   //Create a picture element for alternative sources of image
   const picture = document.createElement('picture');
   const source1 = document.createElement('source');
   source1.setAttribute('media', "(max-width: 600px)");
-  source1.setAttribute('srcset', `./images/${imageName}_medium.jpg`);
+  source1.setAttribute('data-srcset', `./images/${imageName}_medium.jpg`);
   picture.appendChild(source1);
   const img = document.createElement('img');
-  img.src = `./images/${imageName}_small.jpg`;
+  img.setAttribute('data-src', `./images/${imageName}_small.jpg`);
+  //img.src = `./images/${imageName}_small.jpg`;
   img.classList.add('lazy','restaurant-img');
   img.setAttribute('alt', `A picture from ${restaurant.name}`);
   img.setAttribute('title', `A picture from ${restaurant.name}'s`);
@@ -213,17 +214,14 @@ createRestaurantHTML = (restaurant) => {
   if(restaurant.is_favorite === undefined) {
     restaurant.is_favorite = false;
   }
-  if(restaurant.is_favorite === true) {
+  if(restaurant.is_favorite === 'true') {
     favoriteButton.classList.add('is-favorite');
   }
   picContainer.appendChild(favoriteButton);
   picContainer.appendChild(picture);
- 
   li.append(picContainer);
 
-
   const name = document.createElement('h2');
-
   name.id = `restaurant-name-label-${imageName}`;
   name.innerHTML = restaurant.name;
   li.append(name);

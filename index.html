@@ -65,7 +65,9 @@
         var s = d.createElement("script"); s.async = true;
         var v = !("IntersectionObserver" in w) ? "8.16.0" : "10.19.0";
         s.src = "https://cdn.jsdelivr.net/npm/vanilla-lazyload@" + v + "/dist/lazyload.min.js";
-        w.lazyLoadOptions = {};
+        w.lazyLoadOptions = {
+          elements_selector: ".lazy",
+        };
         b.appendChild(s);
       }(window, document));
   </script>

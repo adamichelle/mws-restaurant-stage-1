@@ -64,8 +64,13 @@ a:hover {
 a img {
 	border: none 0px #fff;
 }
+
 article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
+}
+
+.lazy:not([src]):not([srcset]) {
+  visibility: hidden;
 }
 
 input,
@@ -75,6 +80,7 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
+
 input {
   overflow: visible;
 }

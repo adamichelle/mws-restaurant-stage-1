@@ -230,8 +230,8 @@ class DBHelper {
 
   
   static addToFavorites(id) {
-    const favoritesUrl = `${DBHelper.DATABASE_URL[0]}${id}/?is_favorite=true`;
-    fetch(favoritesUrl, {
+    const addToFavoritesUrl = `${DBHelper.DATABASE_URL[0]}${id}/?is_favorite=true`;
+    fetch(addToFavoritesUrl, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json'
@@ -246,6 +246,22 @@ class DBHelper {
     })
   }
 
+  static removeFromFavorites(id) {
+    const removeFromFavoritesUrl = `${DBHelper.DATABASE_URL[0]}${id}/?is_favorite=false`;
+    fetch(removeFromFavoritesUrl, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Request succeeded', data)
+    })
+    .catch((error) => {
+      console.log('Request failed', error)
+    })
+  }
 
   static addNewReview(form_parameters) {
     fetch(DBHelper.DATABASE_URL[1], {

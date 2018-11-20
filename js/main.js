@@ -169,7 +169,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach(restaurant => {
     ul.append(createRestaurantHTML(restaurant));
-    toggleRestaurantAsFavorite(restaurant.id);
+    toggleRestaurantAsFavorite(restaurant.id, restaurant.name);
 
   });
   addMarkersToMap();
@@ -210,12 +210,15 @@ createRestaurantHTML = (restaurant) => {
   favoriteButton.className = 'favorite-button';
   favoriteButton.id = `favorite-button-${restaurant.id}`;
   favoriteButton.setAttribute('aria-label', `add ${restaurant.name} to favorites`);
+  favoriteButton.setAttribute('aria-pressed', 'false');
   favoriteButton.innerHTML = '❤';
   if(restaurant.is_favorite === undefined) {
     restaurant.is_favorite = false;
   }
   if(restaurant.is_favorite === 'true') {
     favoriteButton.classList.add('is-favorite');
+    // favoriteButton.setAttribute('aria-label', `remove ${restaurant.name} from favorites`);
+    favoriteButton.setAttribute('aria-pressed', 'true');
   }
   picContainer.appendChild(favoriteButton);
   picContainer.appendChild(picture);
@@ -245,7 +248,7 @@ createRestaurantHTML = (restaurant) => {
   return li;
 }
 
-toggleRestaurantAsFavorite = (id) => {
+toggleRestaurantAsFavorite = (id, restaurant_name) => {
   const favoriteBtn = document.getElementById(`favorite-button-${id}`);
 
   favoriteBtn.addEventListener("click", () => {
@@ -253,10 +256,14 @@ toggleRestaurantAsFavorite = (id) => {
 
     if(isFavorite === true) {
       favoriteBtn.classList.remove('is-favorite');
-      
+      DBHelper.removeFromFavorites(id);
+      favoriteBtn.setAttribute('aria-pressed', 'false');
+      // favoriteBtn.setAttribute('aria-label', `Add ${restaurant_name} to favorites`);
     } else {
       favoriteBtn.classList.add('is-favorite');
       DBHelper.addToFavorites(id);
+      favoriteBtn.setAttribute('aria-pressed', 'true');
+      // favoriteBtn.setAttribute('aria-label', `Remove ${restaurant_name} from favorites`);
     }
 
   })

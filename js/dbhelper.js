@@ -19,6 +19,11 @@ class DBHelper {
         keyPath: 'id'
         });
         restaurantsListStore.createIndex('by-ID', 'id');
+
+        let reviewsListStore = upgradeDb.createObjectStore('reviews-list', {
+          keyPath: 'id'
+        });
+        reviewsListStore.createIndex('by-Review-ID', 'id');
 /* 
         let rateListstore = upgradeDb.createObjectStore('rate-list', {
             keyPath: 'id'
@@ -84,10 +89,30 @@ class DBHelper {
     .then((response) => response.json())
     .then((reviews) => {
       console.log("Retriving reviews from api!");
+      DBHelper.openDatabase().then(function(db){
+                
+        if(!db) return;
+
+        let tx = db.transaction('reviews-list', 'readwrite');
+        let reviewsListStore = tx.objectStore('reviews-list');
+        reviews.forEach(function(review) {
+          reviewsListStore.put(review);
+        });
+      });
+
       callback(null, reviews);
     })
     .catch((e) => {
-      console.log("Retriving reviews from indexDB!");
+      console.log(`Request failed. Returned ${e}. Now fetching from index db!!"`);
+      DBHelper.openDatabase().then(function(db) {
+        
+        const index = db.transaction('reviews-list')
+        .objectStore('reviews-list').index('by-Review-ID');
+
+        index.getAll().then((reviews) => {
+          callback(null, reviews);
+        });
+      });
     })
   }
 

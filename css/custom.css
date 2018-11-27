@@ -70,7 +70,7 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
 }
 
 .lazy:not([src]):not([srcset]) {
-  visibility: hidden;
+  /* visibility: hidden; */
 }
 
 input,

@@ -24,11 +24,6 @@ class DBHelper {
           keyPath: 'id'
         });
         reviewsListStore.createIndex('by-Review-ID', 'id');
-/* 
-        let rateListstore = upgradeDb.createObjectStore('rate-list', {
-            keyPath: 'id'
-        });
-        rateListstore.createIndex('by-rateQuery', 'id') */
     });
   }
 
@@ -299,7 +294,6 @@ class DBHelper {
     .then((data) => console.log(data))
     .catch((err) => console.log(err))
   }
-
 
   /* static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({

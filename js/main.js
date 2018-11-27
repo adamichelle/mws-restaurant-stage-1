@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added 
   fetchNeighborhoods();
   fetchCuisines();
-  //registerServiceWorker();
+  registerServiceWorker();
 
   setTimeout( () => {
     mapContainer.style.position = "absolute";
@@ -196,11 +196,12 @@ createRestaurantHTML = (restaurant) => {
   const picture = document.createElement('picture');
   const source1 = document.createElement('source');
   source1.setAttribute('media', "(max-width: 600px)");
-  source1.setAttribute('data-srcset', `./images/${imageName}_medium.jpg`);
+  source1.setAttribute('srcset', `./images/${imageName}_medium.jpg`);
+  // source1.setAttribute('data-srcset', `./images/${imageName}_medium.jpg`);
   picture.appendChild(source1);
   const img = document.createElement('img');
-  img.setAttribute('data-src', `./images/${imageName}_small.jpg`);
-  //img.src = `./images/${imageName}_small.jpg`;
+  // img.setAttribute('data-src', `./images/${imageName}_small.jpg`);
+  img.src = `./images/${imageName}_small.jpg`;
   img.classList.add('lazy','restaurant-img');
   img.setAttribute('alt', `A picture from ${restaurant.name}`);
   img.setAttribute('title', `A picture from ${restaurant.name}'s`);

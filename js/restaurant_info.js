@@ -192,7 +192,9 @@ fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
     }
     const ul = document.getElementById('reviews-list');
     reviews.forEach(review => {
-      ul.appendChild(createReviewHTML(review));
+      if (review.restaurant_id == restaurant_id){
+        ul.appendChild(createReviewHTML(review)); 
+      }
     });
     container.appendChild(ul);
   })

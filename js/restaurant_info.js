@@ -152,6 +152,8 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 fillReviewsHTML = (restaurant_id = self.restaurant.id) => {
   const container = document.getElementById('reviews-container');
   const reviewForm = document.getElementById('new-review-form');
+  const restaurantIdField = document.getElementById('restaurant-id');
+  restaurantIdField.value = restaurant_id;
 
   const reviewsSectionHeader = document.createElement('div');
   reviewsSectionHeader.id = 'reviews-section-header';
@@ -310,8 +312,13 @@ addNewReview = () => {
 registerServiceWorker = () => {
   if(!navigator.serviceWorker) return;
   navigator.serviceWorker.register('./sw.js', {scope: './'})
-  .then( function(){
+  .then( function(reg){
+      if (!navigator.serviceWorker.controller) {
+        return;
+      }
+
       console.log("Service Worker Successfully Registered!");
+      
   })
   .catch( function(){
       console.log("Service Worker Not registered!");

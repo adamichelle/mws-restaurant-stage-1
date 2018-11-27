@@ -1,5 +1,20 @@
 let restaurant;
 var newMap;
+let isOnline;
+const statusDiv = document.getElementById("status");
+const mapContainer = document.getElementById('map-container');
+//Check if user is connected or not
+window.addEventListener('offline', () => {
+  statusDiv.style.display = "block";
+  statusDiv.style.padding = '0.6em';
+  statusDiv.innerHTML = "You're Offline."
+  mapContainer.style.top = '176px';
+}, false);
+
+window.addEventListener('online', () => {
+  statusDiv.style.display = "none";
+  mapContainer.style.top = '130px';
+}, false);
 
 /**
  * Initialize map as soon as the page is loaded.
@@ -301,7 +316,6 @@ addNewReview = () => {
       "rating": parseInt(rating),
       "comments": comments
     }
-    
     console.log(parameters);
     DBHelper.addNewReview(parameters);
     window.location.reload(true)

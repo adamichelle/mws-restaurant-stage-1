@@ -1,5 +1,5 @@
 const appPrefix = 'RestaurantReviews_'; //name of the app
-const version = 'v_29';    //version of cache
+const version = 'v_01';    //version of cache
 const staticCacheName = `${appPrefix}static_${version}`; //cache name for the page layout
 const dynamicCacheName = `${appPrefix}dynamic_${version}`; //cache name for dynamic pages
 const imagesCacheName = `${appPrefix}images_${version}`; //cache name for images
@@ -53,6 +53,7 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
+    const request = event.request;
     const requestUrl = new URL(event.request.url);
     
     if (requestUrl.origin === location.origin) {
@@ -77,24 +78,41 @@ self.addEventListener('fetch', (event) => {
         } */
     }
 
+    if(request.method === "POST") {
+        event.respondWith(
+            fetch(event.request)
+            .catch(function () {
+                self.clients.matchAll()
+                .then(function(clients) {
+                    clients.forEach((client) => {
+                        client.postMessage({
+                            msg: 'Submission defered. Server will be updated when connection is re-established',
+                            url: event.request.url
+                        });
+                    });
+                });
+            })
+        )
+    }
+    else {
+        event.respondWith(
+            caches.match(event.request).then((cacheResponse) => {
+                return cacheResponse || fetch(event.request)
+                .then((networkResponse) => {
+                    return caches.open(dynamicCacheName)
+                    .then((dynamicCache) => {
+                        if(/\/restaurants/.test(event.request.url)){
+                            return networkResponse;
+                        }
+                        if(/\/reviews/.test(event.request.url)) return networkResponse;
+                        dynamicCache.put(event.request.url, networkResponse.clone());
+                        return networkResponse;
+                    });
+                });
+            })
+        );
+    }
     
-
-    event.respondWith(
-      caches.match(event.request).then((cacheResponse) => {
-        return cacheResponse || fetch(event.request)
-        .then((networkResponse) => {
-            return caches.open(dynamicCacheName)
-            .then((dynamicCache) => {
-                if(/\/restaurants/.test(event.request.url)){
-                    return networkResponse;
-                }
-                if(/\/reviews/.test(event.request.url)) return networkResponse;
-                dynamicCache.put(event.request.url, networkResponse.clone());
-                return networkResponse;
-            });
-        });
-      })
-    );
 });
 
 

@@ -3,6 +3,7 @@ var newMap;
 let isOnline;
 const statusDiv = document.getElementById("status");
 const mapContainer = document.getElementById('map-container');
+const notificationBox = document.getElementById('notification');
 //Check if user is connected or not
 window.addEventListener('offline', () => {
   statusDiv.style.display = "block";
@@ -11,10 +12,7 @@ window.addEventListener('offline', () => {
   mapContainer.style.top = '176px';
 }, false);
 
-window.addEventListener('online', () => {
-  statusDiv.style.display = "none";
-  mapContainer.style.top = '130px';
-}, false);
+window.addEventListener('online', sendFailedPost, false);
 
 /**
  * Initialize map as soon as the page is loaded.
@@ -316,12 +314,105 @@ addNewReview = () => {
       "rating": parseInt(rating),
       "comments": comments
     }
-    console.log(parameters);
+    const parametersArray = [];
+    parametersArray.push(parameters);   
     DBHelper.addNewReview(parameters);
-    window.location.reload(true)
+    listenForFailedPost(parametersArray);
+    
     event.preventDefault();
     
   });
+}
+
+listenForFailedPost = (parametersArray) => {
+  navigator.serviceWorker.addEventListener('message', event => {
+    //alert(event.data.msg);
+    const newReviewForm = document.getElementById('new-review-form');
+    const restaurantIdField = document.getElementById('restaurant-id');
+    const restaurantId = restaurantIdField.value;
+    newReviewForm.reset();
+    restaurantIdField.value = restaurantId;
+
+    DBHelper.openDatabase().then(function(db) {
+      if(!db) return;
+        
+      const ul = document.getElementById('reviews-list');
+
+      let tx = db.transaction('form-data', 'readwrite');
+      let formDataStore = tx.objectStore('form-data');
+      parametersArray.forEach(function(parameters) {
+        formDataStore.put(parameters);
+        ul.appendChild(createOfflineReviewHTML(parameters))
+      })
+
+    })
+  })
+}
+
+createOfflineReviewHTML = (parameters) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  const date = new Intl.DateTimeFormat('en-US', options).format(new Date());
+  const li = document.createElement('li');
+  li.className = 'review-item';
+
+  const header = document.createElement('h4');
+  header.className = 'review-item-header';
+  header.innerHTML = `${parameters.name} `;
+
+  const span = document.createElement('span');
+  span.className = 'review-item-date';
+  span.innerHTML = date;
+
+  
+  header.appendChild(span);
+  li.appendChild(header);
+
+  const body = document.createElement('div');
+  body.className = 'review-item-body';
+  
+  const rating = document.createElement('p');
+  rating.className = 'review-item-rating';
+  rating.innerHTML = `Rating: ${parameters.rating}`;
+  body.appendChild(rating);
+
+  const comments = document.createElement('p');
+  comments.innerHTML = parameters.comments;
+  body.appendChild(comments);
+
+  li.appendChild(body);
+
+  return li;
+}
+
+function sendFailedPost (event) {
+  if(event.type == "online") {
+    statusDiv.style.display = "none";
+    mapContainer.style.top = '130px';
+    DBHelper.openDatabase().then(function(db) {
+      const index = db.transaction('form-data')
+      .objectStore('form-data').index('by-Name');
+
+      index.getAll().then((offlineReviews) => {
+          console.log(offlineReviews);
+          offlineReviews.forEach((review) => {
+            let response = fetch(DBHelper.DATABASE_URL[1], {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify(review)
+            })
+            response.then(() => {
+              DBHelper.openDatabase().then(function(db){
+                const tx = db.transaction('form-data', 'readwrite');
+                const formDataStore = tx.objectStore('form-data');
+                formDataStore.clear();
+              })
+            });
+          })
+      });
+    })
+  }
 }
 
 //register service worker
@@ -332,9 +423,7 @@ registerServiceWorker = () => {
       if (!navigator.serviceWorker.controller) {
         return;
       }
-
-      console.log("Service Worker Successfully Registered!");
-      
+      console.log("Service Worker Successfully Registered!");      
   })
   .catch( function(){
       console.log("Service Worker Not registered!");

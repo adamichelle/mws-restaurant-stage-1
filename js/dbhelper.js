@@ -24,6 +24,10 @@ class DBHelper {
           keyPath: 'id'
         });
         reviewsListStore.createIndex('by-Review-ID', 'id');
+        let formDataStore = upgradeDb.createObjectStore('form-data', {
+          keyPath: 'name'
+        });
+        formDataStore.createIndex('by-Name', 'name');
     });
   }
 
@@ -291,7 +295,7 @@ class DBHelper {
         },
         body: JSON.stringify(form_parameters)
     }).then((res) => res.json())
-    .then((data) => console.log(data))
+    .then((data) => window.location.reload(true))
     .catch((err) => console.log(err))
   }
 

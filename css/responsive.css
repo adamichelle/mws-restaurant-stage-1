@@ -11,8 +11,26 @@
     .restaurants-list li {
         width: 100%;
     }
-}
 
+    /* ================================= New Review Form ================================= */
+    .reviews-section-header .title {
+        flex: 0 0 62%;
+        width: 62%;
+    }
+
+    .reviews-section-header .new-review-btn-div {
+        flex: 0 0 38%;
+        width: 38%;
+    }
+}
+@media screen and (max-width: 770px) {
+    .form-elements {
+        display: block;
+    }
+    .form-elements>.label-col {
+        display: block;
+    }
+}
 @media screen and (min-width: 600px) and (max-width: 899px) {
 
     /* ================================ Restaurant Filtering ============================== */
@@ -53,6 +71,16 @@
         width: 75%;
     }
 
+    /* ================================= New Review Form ================================= */
+    .reviews-section-header .title {
+        flex: 0 0 70%;
+        width: 70%;
+    }
+
+    .reviews-section-header .new-review-btn-div {
+        flex: 0 0 30%;
+        width: 30%;
+    }
 }
 
 @media screen and (min-width: 900px) {
@@ -101,4 +129,33 @@
         border-bottom: none;
     }
 
+}
+
+
+@media screen and (min-width: 900px) and (max-width: 970px){
+    /* ================================ Restaurant Listing =============================== */
+    .favorite-button {
+        left: 190px;
+    }
+}
+
+@media screen and (min-width: 971px) and (max-width: 1040px){
+    /* ================================ Restaurant Listing =============================== */
+    .favorite-button {
+        left: 220px;
+    }
+}
+
+@media screen and (min-width: 1040px) and (max-width: 1100px){
+    /* ================================ Restaurant Listing =============================== */
+    .favorite-button {
+        left: 220px;
+    }
+}
+
+@media screen and (min-width: 1101px) and (max-width: 1340px){
+    /* ================================ Restaurant Listing =============================== */
+    .favorite-button {
+        left: 260px;
+    }
 }

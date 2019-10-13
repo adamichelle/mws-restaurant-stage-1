@@ -40,8 +40,8 @@ class DBHelper {
     // return `http://localhost:${port}/data/restaurants.json`;
     // return `./data/restaurants.json`;
     const databaseUrls = [
-      `https://my-restaurant-reviews-backend.herokuapp.com/restaurants/`,
-      `https://my-restaurant-reviews-backend.herokuapp.com/reviews/`
+      `https://adamichelle-mws-restaurant-stage-3.glitch.me/restaurants/`,
+      `https://adamichelle-mws-restaurant-stage-3.glitch.me/reviews/`
     ]
     return databaseUrls;
   }
